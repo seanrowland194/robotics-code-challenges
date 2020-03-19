@@ -1,0 +1,72 @@
+// Created on Thu March 19 2020
+int r_motor=2;
+int l_motor=0;
+int speed=60;
+int pause=1000;
+int veerspeed=20;
+int r_bump=9;
+int r_sense=2;
+int l_sense=0;
+int l_bump=8;
+int main()
+{
+	rightturn();
+	msleep(pause/10);
+	ao(0);
+	foward();
+	msleep(pause);
+	ao();
+	veerright();
+	ao();
+	diagonal();
+	ao();
+	backup();
+	msleep(pause*2);
+	ao();
+	rightturn();
+	msleep((pause/10)+20);
+	ao();
+	foward();
+	msleep(pause*2);
+	ao();
+	
+return 0;
+}
+void rightturn(){
+motor(r_motor,-speed);
+motor(l_motor,speed);
+printf("turning right /n");
+}
+void veerright(){
+motor(r_motor,veerspeed+10);
+motor(l_motor,veerspeed);
+printf("veering right /n");
+}
+void veerleft(){
+motor(r_motor,speed);
+motor(l_motor,speed);
+printf("veering left /n");
+}
+void foward(){
+motor(r_motor,speed);
+motor(l_motor,speed);
+printf("foward /n");
+}
+void diagonal(){
+while(digital(r_bump)==0){
+foward(); 
+msleep(pause);
+ao();
+if(analog(r_sense)>analog(l_sense)){
+	veerleft();
+}
+if(analog(r_sense)<analog(l_sense)){
+	veerright();
+}
+}
+}
+void backup(){
+motor(r_motor,-speed);
+motor(l_motor,-speed);
+printf("backwards /n");
+}
