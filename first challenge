@@ -12,7 +12,7 @@ int main()
 {
 	rightturn(); //turn right so the robot can get into proper pos
 	msleep(pause/10);
-	ao(0);
+	ao();
 	foward(); // theese next actions set up my robot to move twoards the wall 
 	msleep(pause);
 	ao();
