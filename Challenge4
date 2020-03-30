@@ -1,0 +1,124 @@
+// Created on Thursday  March 25 2020
+//integers 
+int pause=100;
+int distsense=1;
+int lmotor=0;
+int rmotor=2;
+int speed=60;
+int veerspeed=20;
+int tophat=5;
+int rdist=2;
+int toclose=200;
+int main()
+{
+	foward(); 
+	msleep(pause); // getting into position
+	ao();
+	rightturn();
+	msleep(pause);
+	ao();
+	voyage();
+	ao();
+	leftturn(); //final allignment to ultimatly follow black line, not now but maybe later
+	msleep(pause*5+250);
+	ao();
+   findingline();
+	follow();
+	ao();
+	backup();
+	msleep(pause+200);
+	ao();
+	leftturn();
+	msleep(pause+400);
+	ao();
+	foward();
+	msleep(pause*2);
+	ao();
+	finale();
+	
+	return 0;
+}
+//custom functions 
+void rightturn(){ //turns the bot right 
+	motor(rmotor,-speed);
+	motor(lmotor,speed);
+	printf("turning right \n");
+}
+void veerright(){ // moves the bot to the right sligthly
+	motor(rmotor,60);
+	motor(lmotor,0);
+	printf("veering right \n");
+}
+void veerleft(){// moves the bot slightly left
+	motor(rmotor,60);
+	motor(lmotor,0);
+	printf("veering left \n");
+}
+void foward(){ // moves the bot foward
+	motor(rmotor,speed);
+	motor(lmotor,speed);
+	printf("foward \n");
+}
+void leftturn(){
+	motor(rmotor,speed);
+	motor(lmotor,-speed);
+	printf("turning left \n");
+}
+void voyage(){
+	while(analog(distsense)>200){ //detects when it get close to the wall and stops right before it hits it 
+		foward();
+		msleep(pause);
+		ao();
+	if(analog(tophat)>0){ // if it senses the black 
+		rightturn();
+		msleep(pause/3);
+		ao();
+	}
+	}
+}
+void findingline(){
+	while(analog(tophat)==0){
+		foward();
+		msleep(pause);
+		ao();
+	}
+}
+void follow(){
+	while(analog(distsense)>200){
+		foward(); //move foward 
+		msleep(pause);
+		ao();
+		if(analog(tophat)==0){ // check values , if 0 is not on line so turn left 
+			leftturn();
+		msleep(pause/3);
+		ao();
+		}
+	if(analog(tophat)>0){ // checking value if >0 its on the line turn right
+		rightturn();
+		msleep(pause/3);
+		ao();
+	}
+}
+}
+void backup(){
+motor(rmotor,-speed);
+	motor(lmotor,-speed);
+	printf("backwards \n");
+}
+void finale(){
+while(analog(tophat)==0){
+	foward();
+	msleep(pause);
+	ao();
+if(analog(2)>toclose){
+	rightturn();
+	msleep(pause/3);
+	ao();
+}
+if(analog(2)<toclose){
+	leftturn();
+	msleep(pause/3);
+	ao();
+}
+}
+}	
