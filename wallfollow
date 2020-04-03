@@ -1,0 +1,177 @@
+// Created on Thu April 2 2020
+int pause=100;
+int mdist=1;
+int lmotor=0;
+int rmotor=2;
+int speed=60;
+int veerspeed=20;
+int tophat=5;
+int ldist=0;
+int rdist=2;
+int count=0;
+int main()
+{
+foward(); 
+	msleep(pause); // making an intial adjustment 
+	ao();
+	rightturn();
+	msleep(pause);
+	ao();
+	first();
+	ao();
+	leftturn();
+	msleep(pause*5); //get into position
+	ao();
+	second();
+	ao();
+	third();
+	four();
+	five();
+	six();
+	seven();
+	eight();
+}
+void rightturn(){ //turns the bot right 
+	motor(rmotor,-speed);
+	motor(lmotor,speed);
+	printf("turning right \n");
+}
+
+
+void foward(){ // moves the bot foward
+	motor(rmotor,speed);
+	motor(lmotor,speed);
+	printf("foward \n");
+}
+void leftturn(){
+	motor(rmotor,speed);
+	motor(lmotor,-speed);
+	printf("turning left \n");
+}
+void backup(){ //backs up
+		motor(rmotor,-speed);
+	motor(lmotor,-speed);
+	printf("backwards \n");
+}
+void first(){ // gets to bottom wall
+	while(analog(mdist)>200){
+	foward();
+	msleep(pause); 
+	ao();
+	if(analog(ldist)<800){
+	 rightturn();
+	msleep(pause);
+		ao();
+	}
+	if(analog(rdist)<300){
+	leftturn();
+	msleep(pause);
+	ao();
+	}		
+}
+}
+void second(){
+leftturn();
+msleep(pause*3);
+ao();
+while(analog(mdist)>400){
+		foward();
+	msleep(pause); 
+	ao();
+	if(analog(ldist)<300){
+	 rightturn();
+	msleep(pause);
+		ao();
+	}
+	if(analog(rdist)<300){
+	leftturn();
+	msleep(pause);
+	ao();
+	}		
+}
+}
+void third(){
+leftturn();
+msleep(pause*5);
+ao();
+foward();
+msleep(pause);
+ao();
+	while(analog(mdist)>500){
+		foward();
+	msleep(pause); 
+	ao();
+	if(analog(ldist)<300){
+	 rightturn();
+	msleep(pause);
+		ao();
+	}
+	if(analog(rdist)<300){
+	leftturn();
+	msleep(pause);
+	ao();
+	}		
+}
+}
+void four(){
+rightturn();
+msleep(200+pause*4);
+ao();
+while(analog(mdist)>500){
+		foward();
+	msleep(pause); 
+	ao();
+}
+}
+void five(){
+	rightturn();
+	msleep(200+pause*5);
+	ao();
+	while(analog(mdist)>500){
+		foward();
+	msleep(pause); 
+	ao();
+	if(analog(ldist)<300){
+	rightturn();
+	msleep(pause);
+		ao();
+	}
+}
+}
+void six(){
+	rightturn();
+	msleep(pause*5);
+	ao();
+		while(analog(mdist)>500){
+		foward();
+	msleep(pause); 
+	ao();
+	if(analog(ldist)<300){
+	rightturn();
+	msleep(pause);
+		ao();
+	}
+	}
+	}
+void seven(){
+	leftturn();
+	msleep(pause*5);
+	ao();
+	while(analog(mdist)>500){
+		foward();
+	msleep(pause); 
+	ao();
+	if(analog(rdist)<300){
+	leftturn();
+	msleep(pause);
+		ao();
+	}
+	}
+	}
+void eight(){
+		while(analog(mdist)>200){
+		foward();
+	msleep(pause); 
+	ao();
+	}
+}
