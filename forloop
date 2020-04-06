@@ -1,0 +1,30 @@
+// Created on Mon April 6 2020
+int pause=100;
+int distsense=1;
+int lmotor=0;
+int rmotor=2;
+int speed=60;
+int veerspeed=20;
+int tophat=5;
+int main()
+{
+int counter;
+	for(counter=1;counter<=7;counter++){
+	foward();
+	msleep(pause);
+	ao();
+	backwards();
+	msleep(pause);
+	ao();
+	}
+}
+void foward(){ // moves the bot foward
+	motor(rmotor,speed);
+	motor(lmotor,speed);
+	printf("foward \n");
+}
+void backwards(){ // moves the bot backwards
+	motor(rmotor,-speed);
+	motor(lmotor,-speed);
+	printf("backwards \n");
+}
